@@ -1,0 +1,45 @@
+- name: Configure VM2 for student-management
+  hosts: compute-node-d
+  become: yes
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+    - name: Install Docker dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: Add user to docker group
+      user:
+        name: compute-node-d
+        groups: docker
+        append: yes
+    - name: Ensure project directory exists
+      file:
+        path: /home/compute-node-d/devops-project/student-management
+        state: directory
+        owner: compute-node-d
+        group: compute-node-d
