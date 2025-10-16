@@ -44,16 +44,16 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy with Ansible') {
             steps {
-                sh 'docker compose up -d'
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbooks/deploy.yaml'
             }
         }
     }
 
     post {
         always {
-            sh 'docker system prune -f'
+            sh 'docker system prune -f --volumes'
         }
         success {
             echo '✅ Deployment successful!'
