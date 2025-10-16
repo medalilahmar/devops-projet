@@ -43,3 +43,18 @@
         state: directory
         owner: compute-node-d
         group: compute-node-d
+    - name: Copy project files to VM2
+      copy:
+        src: /home/medalilahmar/devops-project/student-management/
+        dest: /home/compute-node-d/devops-project/student-management
+        owner: compute-node-d
+        group: compute-node-d
+    - name: Install docker-compose
+      apt:
+        name: docker-compose
+        state: present
+        update_cache: yes
+    - name: Deploy student-management with Docker Compose
+      command: docker-compose -f /home/compute-node-d/devops-project/student-management/docker-compose.yml up -d
+      args:
+        chdir: /home/compute-node-d/devops-project/student-management
