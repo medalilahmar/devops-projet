@@ -1,10 +1,16 @@
-- name: Configure VM2 for student-management
+---
+- name: Deploy student-management on VM2 (Docker Hub + docker-compose)
   hosts: compute-node-d
   become: yes
   tasks:
-    - name: Update package cache
+
+    # --- 1. Mise à jour du cache (rapide) ---
+    - name: Update package cache (cached)
       apt:
         update_cache: yes
+        cache_valid_time: 3600
+
+    # --- 2. Installation Docker (si pas déjà fait) ---
     - name: Install Docker dependencies
       apt:
         name: "{{ item }}"
@@ -14,47 +20,69 @@
         - ca-certificates
         - curl
         - software-properties-common
+
     - name: Add Docker GPG key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
+
     - name: Add Docker repository
       apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
         state: present
+
     - name: Install Docker
       apt:
         name: docker-ce
         state: present
         update_cache: yes
-    - name: Start and enable Docker service
+
+    - name: Install docker-compose
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Start Docker service
       service:
         name: docker
         state: started
         enabled: yes
-    - name: Add user to docker group
+
+    - name: Add compute-node-d to docker group
       user:
         name: compute-node-d
         groups: docker
         append: yes
-    - name: Ensure project directory exists
+
+    # --- 3. Créer le répertoire ---
+    - name: Create project directory
       file:
         path: /home/compute-node-d/devops-project/student-management
         state: directory
         owner: compute-node-d
         group: compute-node-d
-    - name: Copy project files to VM2
+        mode: '0755'
+
+    # --- 4. Copier UNIQUEMENT docker-compose.yml ---
+    - name: Copy docker-compose.yml
       copy:
-        src: /home/medalilahmar/devops-project/student-management/
-        dest: /home/compute-node-d/devops-project/student-management
+        src: /home/medalilahmar/devops-project/student-management/docker-compose.yml
+        dest: /home/compute-node-d/devops-project/student-management/docker-compose.yml
         owner: compute-node-d
         group: compute-node-d
-    - name: Install docker-compose
-      apt:
-        name: docker-compose
+        mode: '0644'
+
+    # --- 5. Pull l'image depuis Docker Hub ---
+    - name: Pull latest image from Docker Hub
+      docker_image:
+        name: lahmarali/student-management:latest
+        source: pull
+      become_user: compute-node-d
+
+    # --- 6. Démarrer avec docker-compose ---
+    - name: Deploy with docker-compose
+      docker_compose:
+        project_src: /home/compute-node-d/devops-project/student-management
         state: present
-        update_cache: yes
-    - name: Deploy student-management with Docker Compose
-      command: docker-compose -f /home/compute-node-d/devops-project/student-management/docker-compose.yml up -d
-      args:
-        chdir: /home/compute-node-d/devops-project/student-management
+        restarted: yes
+      become_user: compute-node-d
