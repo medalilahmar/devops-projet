@@ -1,7 +1,11 @@
-target/*
-!target/*.jar
-*.md
-.git
+# Fichiers à IGNORER
+.git/
 .gitignore
+*.log
+.mvn/
 mvnw
 mvnw.cmd
+Jenkinsfile
+README.md
+.dockerignore
+
