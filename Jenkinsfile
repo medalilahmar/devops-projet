@@ -48,7 +48,7 @@ pipeline {
                 script {
                     // ✅ Solution robuste avec retry et timeout
                     retry(3) {
-                        timeout(time: 5, unit: 'MINUTES') {
+                        timeout(time: 20, unit: 'MINUTES') {
                             docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                                 docker.image("${DOCKER_IMAGE}").push()
                                 docker.image("${DOCKER_IMAGE}").push("latest")
