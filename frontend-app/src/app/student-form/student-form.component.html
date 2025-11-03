@@ -1,0 +1,43 @@
+<div class="student-form-container">
+  <h2 mat-dialog-title>{{ isEditMode ? 'Edit Student' : 'Add Student' }}</h2>
+  <mat-dialog-content>
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" required>
+        <mat-error *ngIf="studentForm.get('firstName')?.hasError('required')">
+          First name is required
+        </mat-error>
+        <mat-error *ngIf="studentForm.get('firstName')?.hasError('minlength')">
+          First name must be at least 2 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" required>
+        <mat-error *ngIf="studentForm.get('lastName')?.hasError('required')">
+          Last name is required
+        </mat-error>
+        <mat-error *ngIf="studentForm.get('lastName')?.hasError('minlength')">
+          Last name must be at least 2 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="studentForm.get('email')?.hasError('email')">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="studentForm.invalid" (click)="onSubmit()">
+      {{ isEditMode ? 'Update' : 'Create' }}
+    </button>
+  </mat-dialog-actions>
+</div>

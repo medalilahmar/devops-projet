@@ -1,0 +1,221 @@
+<div class="home-container">
+  <!-- Hero Section avec animation -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon>stars</mat-icon>
+        <span>Système de Gestion Premium</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="gradient-text">Student Management</span>
+        <br/>System
+      </h1>
+      <p class="hero-subtitle">
+        Gérez efficacement vos départements et étudiants avec notre plateforme intuitive 
+        et moderne. Une expérience utilisateur exceptionnelle vous attend.
+      </p>
+      <div class="hero-actions">
+        <button mat-raised-button class="hero-button primary" (click)="navigateTo('/departments')">
+          <mat-icon>explore</mat-icon>
+          <span>Explorer les Départements</span>
+          <mat-icon class="arrow">arrow_forward</mat-icon>
+        </button>
+        <button mat-raised-button class="hero-button secondary" (click)="navigateTo('/students')">
+          <mat-icon>groups</mat-icon>
+          <span>Voir les Étudiants</span>
+        </button>
+      </div>
+      
+      <div class="hero-stats-mini">
+        <div class="mini-stat">
+          <div class="mini-stat-value">{{ stats.totalDepartments }}+</div>
+          <div class="mini-stat-label">Départements</div>
+        </div>
+        <div class="mini-stat-divider"></div>
+        <div class="mini-stat">
+          <div class="mini-stat-value">{{ stats.totalStudents }}+</div>
+          <div class="mini-stat-label">Étudiants</div>
+        </div>
+        <div class="mini-stat-divider"></div>
+        <div class="mini-stat">
+          <div class="mini-stat-value">99%</div>
+          <div class="mini-stat-label">Satisfaction</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-image">
+      <div class="hero-card-3d">
+        <mat-icon class="hero-icon">school</mat-icon>
+        <div class="card-glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section avec design moderne -->
+  <section class="stats-section" *ngIf="!loading">
+    <mat-card class="stat-card stat-card-gradient-1" *ngFor="let stat of getStatsArray(); let i = index">
+      <div class="stat-card-bg"></div>
+      <mat-card-content>
+        <div class="stat-content">
+          <div class="stat-icon-wrapper">
+            <div class="stat-icon">
+              <mat-icon>{{ getStatIcon(stat.key) }}</mat-icon>
+            </div>
+            <div class="stat-pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number" [attr.data-target]="stat.value">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+            <div class="stat-trend">
+              <mat-icon class="trend-icon">trending_up</mat-icon>
+              <span>+12% ce mois</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- Quick Actions avec effet glassmorphism -->
+  <section class="actions-section">
+    <div class="section-header-modern">
+      <div class="section-title-wrapper">
+        <h2 class="section-title">Actions Rapides</h2>
+        <div class="section-underline"></div>
+      </div>
+      <p class="section-description">Accédez rapidement aux fonctionnalités principales</p>
+    </div>
+    
+    <div class="actions-grid">
+      <mat-card class="action-card" *ngFor="let action of quickActions; let i = index" 
+                (click)="navigateTo(action.route, action.action)"
+                [class.delay-1]="i === 1"
+                [class.delay-2]="i === 2"
+                [class.delay-3]="i === 3">
+        <div class="action-card-glow" [class]="'glow-' + action.color"></div>
+        <mat-card-content>
+          <div class="action-content">
+            <div class="action-icon-wrapper">
+              <div class="action-icon-bg" [class]="'bg-' + action.color"></div>
+              <mat-icon [color]="action.color" class="action-icon">{{ action.icon }}</mat-icon>
+            </div>
+            <div class="action-text">
+              <h3>{{ action.title }}</h3>
+              <p>{{ action.description }}</p>
+            </div>
+            <div class="action-arrow-wrapper">
+              <mat-icon class="action-arrow">arrow_forward</mat-icon>
+            </div>
+          </div>
+        </mat-card-content>
+        <div class="action-hover-effect"></div>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- Recent Departments avec design cards moderne -->
+  <section class="recent-section" *ngIf="recentDepartments.length > 0 && !loading">
+    <div class="section-header-modern">
+      <div class="section-title-wrapper">
+        <h2 class="section-title">Départements Récents</h2>
+        <div class="section-underline"></div>
+      </div>
+      <button mat-raised-button class="view-all-button" (click)="navigateTo('/departments')">
+        <span>Voir tout</span>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+    
+    <div class="departments-grid">
+      <mat-card class="department-card" *ngFor="let dept of recentDepartments; let i = index">
+        <div class="department-card-header" [style.background]="'linear-gradient(135deg, hsl(' + (i * 90) + ', 70%, 60%), hsl(' + (i * 90 + 45) + ', 70%, 50%))'">
+          <div class="department-icon-large">
+            <mat-icon>business</mat-icon>
+          </div>
+          <div class="department-badge">Actif</div>
+        </div>
+        
+        <mat-card-content class="department-content">
+          <h3 class="department-name">{{ dept.name }}</h3>
+          <div class="department-location">
+            <mat-icon>location_on</mat-icon>
+            <span>{{ dept.location }}</span>
+          </div>
+          
+          <div class="department-info">
+            <div class="info-item">
+              <div class="info-icon">
+                <mat-icon>person</mat-icon>
+              </div>
+              <div class="info-text">
+                <span class="info-label">Chef de département</span>
+                <span class="info-value">{{ dept.head }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">
+                <mat-icon>phone</mat-icon>
+              </div>
+              <div class="info-text">
+                <span class="info-label">Contact</span>
+                <span class="info-value">{{ dept.phone }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        
+        <mat-card-actions class="department-actions">
+          <button mat-button color="primary" (click)="navigateTo('/departments')">
+            <mat-icon>visibility</mat-icon>
+            <span>Détails</span>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-card-actions>
+        
+        <div class="card-shimmer"></div>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- Loading State avec animation moderne -->
+  <div class="loading-section" *ngIf="loading">
+    <div class="loading-content">
+      <div class="loading-spinner">
+        <mat-spinner diameter="60" color="primary"></mat-spinner>
+        <div class="spinner-glow"></div>
+      </div>
+      <h3 class="loading-title">Chargement des données</h3>
+      <p class="loading-text">Préparation de votre espace de travail...</p>
+      <div class="loading-progress">
+        <div class="progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer info -->
+  <div class="footer-info" *ngIf="!loading">
+    <div class="footer-content">
+      <div class="footer-item">
+        <mat-icon>verified</mat-icon>
+        <span>Sécurisé & Fiable</span>
+      </div>
+      <div class="footer-item">
+        <mat-icon>support_agent</mat-icon>
+        <span>Support 24/7</span>
+      </div>
+      <div class="footer-item">
+        <mat-icon>update</mat-icon>
+        <span>Mises à jour régulières</span>
+      </div>
+    </div>
+  </div>
+</div>

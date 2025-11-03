@@ -1,0 +1,121 @@
+.student-list-card {
+  max-width: 1200px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff, #f5f7fa);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  background: #3f51b5;
+  color: white;
+  padding: 1rem;
+  border-radius: 12px 12px 0 0;
+}
+
+.list-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.list-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.toolbar-left {
+  flex: 1;
+  max-width: 400px;
+}
+
+.toolbar-right {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.add-button, .export-button {
+  border-radius: 20px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  animation: pulse 2s infinite;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  height: 4rem;
+  width: 4rem;
+  color: #3f51b5;
+  margin-bottom: 1rem;
+}
+
+.table-container {
+  margin: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell {
+  background: #3f51b5;
+  color: white;
+  font-weight: 600;
+}
+
+td.mat-cell {
+  padding: 0.5rem;
+}
+
+.action-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.deleting-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .list-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toolbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .search-field {
+    margin-bottom: 1rem;
+  }
+}

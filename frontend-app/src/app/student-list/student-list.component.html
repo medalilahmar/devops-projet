@@ -1,0 +1,82 @@
+<mat-card class="student-list-card mat-elevation-z8"> 
+    <mat-card-header>
+        <mat-card-title class="list-title">Liste des Étudiants 🧑‍🎓</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="list-toolbar">
+            <button mat-flat-button color="primary" class="add-button" (click)="openStudentForm()">
+                <mat-icon>add</mat-icon>
+                Ajouter un Étudiant
+            </button>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
+        </div>
+
+        <div *ngIf="loading && students.length === 0" class="loading-container">
+            <mat-spinner diameter="50"></mat-spinner>
+            <p>Chargement des données...</p>
+        </div>
+        
+        <div *ngIf="!loading && students.length === 0" class="empty-state">
+            <mat-icon class="empty-icon">school_off</mat-icon>
+            <h2>Aucun étudiant trouvé.</h2>
+            <p>Cliquez sur "Ajouter un Étudiant" pour commencer.</p>
+        </div>
+
+        <div class="table-container mat-elevation-z2" *ngIf="!loading && students.length > 0">
+            <table mat-table [dataSource]="students">
+
+                <ng-container matColumnDef="idStudent">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let student"> {{ student.idStudent }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef> Prénom </th>
+                    <td mat-cell *matCellDef="let student"> {{ student.firstName }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef> Nom </th>
+                    <td mat-cell *matCellDef="let student"> **{{ student.lastName | uppercase }}** </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let student"> {{ student.email || 'N/A' }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="action-header"> Actions </th>
+                    <td mat-cell *matCellDef="let student" class="action-cell">
+                        
+                        <div *ngIf="deletingId === student.idStudent; else actionButtons" class="deleting-spinner">
+                            <mat-spinner color="warn" diameter="20"></mat-spinner>
+                        </div>
+                        
+                        <ng-template #actionButtons>
+                            <button mat-icon-button color="primary" 
+                                aria-label="Éditer l'étudiant"
+                                matTooltip="Modifier l'étudiant"
+                                (click)="openStudentForm(student)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            
+                            <button mat-icon-button color="warn" 
+                                aria-label="Supprimer l'étudiant"
+                                matTooltip="Supprimer l'étudiant"
+                                (click)="deleteStudent(student.idStudent)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </ng-template>
+
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+    </mat-card-content>
+</mat-card>

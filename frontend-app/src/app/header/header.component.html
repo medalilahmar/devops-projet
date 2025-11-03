@@ -1,0 +1,116 @@
+<mat-toolbar class="header-toolbar" role="banner">
+  <!-- Gradient Background Overlay -->
+  <div class="header-gradient"></div>
+  <div class="header-glow"></div>
+
+  <div class="toolbar-content">
+    <!-- Logo with enhanced animation -->
+    <div class="logo" routerLink="/" (click)="navigateTo('/')" aria-label="Navigate to Home">
+      <div class="logo-wrapper">
+        <div class="logo-icon-bg">
+          <div class="logo-pulse"></div>
+        </div>
+        <mat-icon class="logo-icon">school</mat-icon>
+      </div>
+      <div class="logo-text-wrapper">
+        <span class="logo-text">{{ title || 'Student Management' }}</span>
+        <span class="logo-subtitle">Excellence in Education</span>
+      </div>
+    </div>
+
+    <!-- Desktop Navigation with modern hover effects -->
+    <nav class="nav-desktop" role="navigation">
+      <a *ngFor="let item of navItems; let i = index" 
+         mat-button 
+         [routerLink]="item.path"
+         [class.active]="isActiveRoute(item.path)"
+         [style.animation-delay.s]="i * 0.1"
+         class="nav-link"
+         [attr.aria-label]="item.label">
+        <div class="nav-link-content">
+          <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+          <span class="nav-label">{{ item.label }}</span>
+        </div>
+        <div class="nav-indicator"></div>
+      </a>
+    </nav>
+
+    <!-- Desktop Actions with ripple effects -->
+    <div class="header-actions">
+      <button mat-icon-button class="action-button search-button" matTooltip="Search" aria-label="Search">
+        <mat-icon>search</mat-icon>
+        <div class="button-ripple"></div>
+      </button>
+      
+      <button mat-icon-button class="action-button notifications-button" matTooltip="Notifications" aria-label="Notifications">
+        <mat-icon>notifications</mat-icon>
+        <span class="notification-badge">3</span>
+        <div class="button-ripple"></div>
+      </button>
+      
+      <button mat-icon-button class="action-button profile-button" matTooltip="Profile" aria-label="Profile">
+        <mat-icon>account_circle</mat-icon>
+        <div class="button-ripple"></div>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Button with hamburger animation -->
+    <button mat-icon-button 
+            class="mobile-menu-button" 
+            (click)="toggleMobileMenu()"
+            [class.active]="mobileMenuOpen"
+            aria-label="Toggle mobile menu">
+      <div class="hamburger">
+        <span class="line line1"></span>
+        <span class="line line2"></span>
+        <span class="line line3"></span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation with glassmorphism backdrop -->
+  <div class="mobile-backdrop" 
+       [class.active]="mobileMenuOpen"
+       (click)="mobileMenuOpen = false"
+       aria-hidden="true"></div>
+  
+  <div class="mobile-nav" [class.active]="mobileMenuOpen" role="navigation">
+    <div class="mobile-nav-header">
+      <div class="mobile-nav-logo">
+        <mat-icon>school</mat-icon>
+        <span>{{ title || 'Student Management' }}</span>
+      </div>
+      <button mat-icon-button (click)="mobileMenuOpen = false" class="close-button" aria-label="Close mobile menu">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <div class="mobile-nav-content">
+      <a *ngFor="let item of navItems; let i = index" 
+         mat-button 
+         [routerLink]="item.path"
+         (click)="navigateTo(item.path)"
+         [style.animation-delay.s]="i * 0.05"
+         [class.active]="isActiveRoute(item.path)"
+         class="mobile-nav-link"
+         [attr.aria-label]="item.label">
+        <div class="mobile-link-icon">
+          <mat-icon>{{ item.icon }}</mat-icon>
+        </div>
+        <span class="mobile-link-label">{{ item.label }}</span>
+        <mat-icon class="mobile-link-arrow">chevron_right</mat-icon>
+      </a>
+    </div>
+    
+    <div class="mobile-nav-footer">
+      <button mat-button class="mobile-footer-button" aria-label="Settings">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button mat-button class="mobile-footer-button" aria-label="Help">
+        <mat-icon>help</mat-icon>
+        <span>Help</span>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>

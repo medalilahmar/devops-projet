@@ -1,0 +1,92 @@
+<div class="about-container">
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="hero-content">
+      <h1>À Propos de Notre Plateforme</h1>
+      <p>
+        Student Management System est une solution moderne et intuitive conçue pour 
+        révolutionner la gestion académique des établissements d'enseignement.
+      </p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">100+</div>
+        <div class="stat-label">Établissements</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Étudiants</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">99.9%</div>
+        <div class="stat-label">Disponibilité</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission-section">
+    <div class="mission-content">
+      <h2>Notre Mission</h2>
+      <p>
+        Nous nous engageons à fournir des outils de gestion académique qui simplifient 
+        les processus complexes, améliorent la productivité et offrent une expérience 
+        exceptionnelle aux administrateurs, enseignants et étudiants.
+      </p>
+    </div>
+    <div class="mission-image">
+      <mat-icon class="mission-icon">rocket_launch</mat-icon>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2>Fonctionnalités Principales</h2>
+    <div class="features-grid">
+      <mat-card *ngFor="let feature of features" class="feature-card">
+        <mat-card-content>
+          <div class="feature-icon">
+            <mat-icon>{{ feature.icon }}</mat-icon>
+          </div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <h2>Notre Équipe</h2>
+    <div class="team-grid">
+      <mat-card *ngFor="let member of team" class="team-card">
+        <mat-card-content>
+          <div class="member-avatar">
+            {{ member.avatar }}
+          </div>
+          <h3>{{ member.name }}</h3>
+          <div class="member-role">{{ member.role }}</div>
+          <p>{{ member.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <mat-card class="cta-card">
+      <mat-card-content>
+        <h2>Prêt à Commencer ?</h2>
+        <p>Rejoignez les nombreux établissements qui font confiance à notre plateforme.</p>
+        <div class="cta-actions">
+          <button mat-raised-button color="primary" routerLink="/departments">
+            Explorer les Fonctionnalités
+          </button>
+          <button mat-stroked-button color="primary">
+            Contactez-Nous
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

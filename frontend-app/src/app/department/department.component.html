@@ -1,0 +1,80 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h2 class="mb-0">Gestion des Départements</h2>
+      <i class="fas fa-building fa-2x"></i> <!-- Assuming Font Awesome is included for icons -->
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="saveDepartment()" class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="name" class="form-label">Nom</label>
+            <input id="name" [(ngModel)]="newDepartment.name" name="name" placeholder="Nom du département" required class="form-control">
+            <div class="invalid-feedback">Le nom est requis.</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="location" class="form-label">Emplacement</label>
+            <input id="location" [(ngModel)]="newDepartment.location" name="location" placeholder="Emplacement" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="phone" class="form-label">Téléphone</label>
+            <input id="phone" [(ngModel)]="newDepartment.phone" name="phone" placeholder="Numéro de téléphone" class="form-control">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="head" class="form-label">Chef de département</label>
+            <input id="head" [(ngModel)]="newDepartment.head" name="head" placeholder="Nom du chef" class="form-control">
+          </div>
+        </div>
+        <div class="d-flex justify-content-start">
+          <button type="submit" class="btn btn-success me-2">
+            <i class="fas fa-save me-1"></i> {{ editMode ? 'Mettre à jour' : 'Ajouter' }}
+          </button>
+          <button type="button" (click)="resetForm()" *ngIf="editMode" class="btn btn-secondary">
+            <i class="fas fa-times me-1"></i> Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow-lg border-0 mt-4">
+    <div class="card-header bg-secondary text-white">
+      <h4 class="mb-0">Liste des Départements</h4>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Emplacement</th>
+              <th>Téléphone</th>
+              <th>Chef</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dep of departments; let i = index" class="animate__animated animate__fadeIn" [ngClass]="{ 'table-active': i % 2 === 0 }">
+              <td>{{ dep.idDepartment }}</td>
+              <td>{{ dep.name }}</td>
+              <td>{{ dep.location }}</td>
+              <td>{{ dep.phone }}</td>
+              <td>{{ dep.head }}</td>
+              <td>
+                <button (click)="editDepartment(dep)" class="btn btn-warning btn-sm me-1">
+                  <i class="fas fa-edit"></i> Modifier
+                </button>
+                <button (click)="deleteDepartment(dep.idDepartment!)" class="btn btn-danger btn-sm">
+                  <i class="fas fa-trash"></i> Supprimer
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

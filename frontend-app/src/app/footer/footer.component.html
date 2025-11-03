@@ -1,0 +1,79 @@
+<footer class="footer">
+  <div class="footer-content">
+    <!-- Brand Section -->
+    <div class="footer-section">
+      <div class="brand">
+        <mat-icon class="brand-icon">school</mat-icon>
+        <span class="brand-text">Student Management</span>
+      </div>
+      <p class="footer-description">
+        Plateforme de gestion académique moderne et efficace pour les établissements d'enseignement.
+      </p>
+      <div class="social-links">
+        <a *ngFor="let social of socialLinks" 
+           [href]="social.url" 
+           class="social-link"
+           mat-icon-button
+           [attr.aria-label]="social.label">
+          <mat-icon>{{ social.icon }}</mat-icon>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section">
+      <h3>Liens Rapides</h3>
+      <nav class="footer-nav">
+        <a *ngFor="let link of quickLinks" 
+           [routerLink]="link.path" 
+           class="footer-link">
+          {{ link.label }}
+        </a>
+      </nav>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <div class="contact-info">
+        <div class="contact-item">
+          <mat-icon>email</mat-icon>
+          <span>contact@studentmanagement.com</span>
+        </div>
+        <div class="contact-item">
+          <mat-icon>phone</mat-icon>
+          <span>+33 1 23 45 67 89</span>
+        </div>
+        <div class="contact-item">
+          <mat-icon>location_on</mat-icon>
+          <span>123 Rue de l'Éducation, Paris</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="footer-section">
+      <h3>Newsletter</h3>
+      <p>Restez informé des dernières mises à jour</p>
+      <div class="newsletter-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <input matInput placeholder="Votre email">
+        </mat-form-field>
+        <button mat-raised-button color="primary">
+          S'abonner
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-content">
+      <p>&copy; {{ currentYear }} Student Management System. Tous droits réservés.</p>
+      <div class="legal-links">
+        <a href="#">Confidentialité</a>
+        <a href="#">Conditions d'utilisation</a>
+      </div>
+    </div>
+  </div>
+</footer>
