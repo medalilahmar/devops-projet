@@ -16,7 +16,7 @@ services:
     restart: always
 
   frontend:
-    build: ./student-management-frontend
+    build: ./frontend-app
     ports:
       - "4200:80"
     depends_on:
