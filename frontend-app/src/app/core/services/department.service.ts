@@ -4,12 +4,14 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 // SUPPRIME l'interface Department locale et utilise celle du core/entities
 import { Department, DepartmentForm } from '../entities/department.model';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepartmentService {
-  private readonly API_URL = 'http://localhost:8089/student/Depatment';
+  private readonly API_URL = `${environment.apiUrl}/Depatment`;
   
   private departmentsSubject = new BehaviorSubject<Department[]>([]);
   public departments$ = this.departmentsSubject.asObservable();

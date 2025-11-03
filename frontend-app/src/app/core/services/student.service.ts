@@ -3,12 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Student, StudentForm } from '../entities/student.model';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-  private readonly API_URL = 'http://localhost:8089/student/students';
+  private readonly API_URL = `${environment.apiUrl}/students`;
   
   private studentsSubject = new BehaviorSubject<Student[]>([]);
   public students$ = this.studentsSubject.asObservable();
