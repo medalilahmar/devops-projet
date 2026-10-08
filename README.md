@@ -1,10 +1,10 @@
-# 🎓 Student Management – DevOps Full-Stack
+# Student Management – DevOps Full-Stack
 
 Application full-stack de gestion des étudiants avec une chaîne CI/CD complète : Jenkins, Maven, Docker, Docker Hub, Ansible, SonarQube, Kubernetes et monitoring Prometheus/Grafana.
 
 ---
 
-## 📋 Description
+## Description
 
 Ce projet met en place une infrastructure DevOps complète autour d’une application de gestion étudiante.  
 Il couvre :
@@ -22,7 +22,7 @@ Il couvre :
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```text
 +----------------------+        +----------------------+        +----------------------+
@@ -42,7 +42,7 @@ Il couvre :
 
 ---
 
-## 🧰 Stack technique
+## Stack technique
 
 - **Backend** : Java 17, Spring Boot, Maven
 - **Frontend** : dossier `frontend-app`
@@ -57,7 +57,7 @@ Il couvre :
 
 ---
 
-## 📁 Structure du projet
+## Structure du projet
 
 ```text
 .
@@ -78,7 +78,7 @@ Il couvre :
 
 ---
 
-## ⚙️ Prérequis
+## Prérequis
 
 ### Jenkins
 
@@ -119,7 +119,7 @@ docker-hub-credentials
 
 ---
 
-## 🚀 Pipeline CI/CD
+## Pipeline CI/CD
 
 Le pipeline Jenkins est défini dans le fichier `Jenkinsfile`.
 
@@ -182,7 +182,7 @@ Le pipeline Jenkins est défini dans le fichier `Jenkinsfile`.
 
 ---
 
-## 🐳 Docker & Docker Hub
+##  Docker & Docker Hub
 
 ### Construire l’image localement
 
@@ -211,7 +211,7 @@ docker-compose up -d
 
 ---
 
-## 📦 Déploiement Ansible
+##  Déploiement Ansible
 
 Le playbook `ansible/playbooks/deploy.yaml` effectue les actions suivantes sur `compute-node-d` :
 
@@ -246,7 +246,7 @@ ansible-playbook \
 
 ---
 
-## 📊 Monitoring & Qualité
+## Monitoring & Qualité
 
 ### SonarQube
 
@@ -303,7 +303,7 @@ http://192.168.1.138:8080
 
 ---
 
-## 📝 Variables importantes
+## Variables importantes
 
 | Variable | Description |
 |---|---|
@@ -316,7 +316,7 @@ http://192.168.1.138:8080
 
 ---
 
-## 📧 Notifications
+## Notifications
 
 Le pipeline envoie des emails en cas de succès ou d’échec.
 
@@ -330,7 +330,7 @@ par ta véritable adresse email dans le `Jenkinsfile`.
 
 ---
 
-## 🤝 Contribution
+## Contribution
 
 1. Fork le projet.
 2. Créer une branche :
@@ -349,7 +349,7 @@ par ta véritable adresse email dans le `Jenkinsfile`.
 
 ---
 
-## 👤 Auteur
+## Auteur
 
 **medalilahmar**
 
